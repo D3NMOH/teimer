@@ -48,5 +48,10 @@
     "vite": "^5.2.8",
     "vite-plugin-vue-devtools": "^7.0.25",
     "vue-tsc": "^2.0.11"
+  },
+  "exports": {
+    ".": {
+      "types": "./types/vue3-circle-progress/index.d.ts"
+    }
   }
 }
