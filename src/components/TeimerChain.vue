@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Circle from './ChainCircle.vue'
+import CircleProgress from './ChainCircle.vue'
 import { FaPlay, FaStop, FaTrashCan } from '@kalimahapps/vue-icons'
 </script>
 
@@ -51,9 +51,9 @@ import { FaPlay, FaStop, FaTrashCan } from '@kalimahapps/vue-icons'
         </div>
       </div>
       <div class="circleContainer">
-        <Circle
-          :initialSeconds="initialCircle[index]"
-          :seconds="computedCircle[index]"
+        <CircleProgress
+          :initialSeconds="parseInt(initialCircle[index])"
+          :seconds="parseInt(computedCircle[index])"
           class="circle"
         />
       </div>
@@ -109,8 +109,18 @@ import { FaPlay, FaStop, FaTrashCan } from '@kalimahapps/vue-icons'
 </template>
 
 <script lang="ts">
+interface Timer {
+  name: string
+  seconds: number
+  minutes: number
+  hours: number
+  intervalId: number | null | undefined
+  inputHours: number
+  inputMinutes: number
+  inputSeconds: number
+}
 export default {
-  data() {
+  data(): { timers: Timer[]; isAnyTimerRunning: boolean; currentTimerIndex: number } {
     return {
       timers: [
         {
@@ -169,7 +179,7 @@ export default {
         this.startNextTimer()
       }
     },
-    startTimer(index) {
+    startTimer(index: number) {
       const timer = this.timers[index]
       if (!timer.intervalId) {
         const totalSeconds = timer.inputHours * 3600 + timer.inputMinutes * 60 + timer.inputSeconds
@@ -178,8 +188,10 @@ export default {
         timer.hours = Math.floor(totalSeconds / 3600)
         timer.intervalId = setInterval(() => {
           if (timer.seconds === 0 && timer.minutes === 0 && timer.hours === 0) {
-            clearInterval(timer.intervalId)
-            timer.intervalId = null
+            if (timer.intervalId !== null && timer.intervalId !== undefined) {
+              clearInterval(timer.intervalId)
+            }
+            timer.intervalId = undefined
             this.currentTimerIndex++
             if (this.currentTimerIndex === this.timers.length) {
               this.isAnyTimerRunning = false
@@ -208,7 +220,9 @@ export default {
     },
     stopAllTimers() {
       this.timers.forEach((timer) => {
-        clearInterval(timer.intervalId)
+        if (timer.intervalId !== null) {
+          clearInterval(timer.intervalId)
+        }
         timer.intervalId = null
         timer.seconds = timer.inputSeconds
         timer.minutes = timer.inputMinutes
@@ -267,7 +281,6 @@ export default {
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s;
-  /* box-shadow: 0 2px 5px #000; */
   border: 1px solid #ff6565;
   &:hover {
     box-shadow: 0 5px 20px #000;

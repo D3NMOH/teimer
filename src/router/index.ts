@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Teimer from '../components/Teimer.vue'
+import Teimer from '../components/SingleTeimer.vue'
 import TeimerChain from '../components/TeimerChain.vue'
 
 const router = createRouter({

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import Circle from './Circle.vue'
+import CircleProgress from './CircleGraph.vue'
 import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
 </script>
 
 <template>
   <div class="timer">
-    <p class="time">{{ formattedTime }}</p>
+    <p class="time" v-if="isTimerRunning === true">{{ formattedTime }}</p>
     <div class="buttons">
       <div
         v-if="isTimerRunning === false"
@@ -25,15 +25,17 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
       </div>
     </div>
     <br />
-    <div class="timerFields">
+    <div v-if="isTimerRunning === false" class="timerFields">
       <div>
         <p class="timeTitle">Hours</p>
         <input v-model.number="inputHours" placeholder="hours" type="number" />
       </div>
+      :
       <div>
         <p class="timeTitle">Minutes</p>
         <input inactive v-model.number="inputMinutes" placeholder="minutes" type="number" />
       </div>
+      :
       <div>
         <p class="timeTitle">Seconds</p>
         <input v-model.number="inputSeconds" placeholder="seconds" type="number" />
@@ -41,7 +43,7 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
     </div>
     <br />
     <!-- <VueTimepicker drop-direction="auto" format="hh:mm:ss" class="timepicker"> </VueTimepicker> -->
-    <Circle
+    <CircleProgress
       :initialHours="inputHours"
       :initialMinutes="inputMinutes"
       :initialSeconds="inputSeconds"
@@ -53,8 +55,18 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
 </template>
 
 <script lang="ts">
+interface Timer {
+  seconds: number
+  minutes: number
+  hours: number
+  intervalId: number | null | undefined
+  inputHours: number
+  inputMinutes: number
+  inputSeconds: number
+  isTimerRunning: boolean
+}
 export default {
-  data() {
+  data(): Timer {
     return {
       seconds: 0,
       minutes: 0,
@@ -94,8 +106,10 @@ export default {
         this.hours = this.inputHours
         this.intervalId = setInterval(() => {
           if (this.seconds === 0 && this.minutes === 0 && this.hours === 0) {
-            clearInterval(this.intervalId)
-            this.intervalId = null
+            if (this.intervalId !== null && this.intervalId !== undefined) {
+              clearInterval(this.intervalId)
+            }
+            this.intervalId = undefined
             alert('Time is up!')
           } else {
             if (this.seconds === 0) {
@@ -115,7 +129,9 @@ export default {
       }
     },
     stopTimer() {
-      clearInterval(this.intervalId)
+      if (this.intervalId !== null && this.intervalId !== undefined) {
+        clearInterval(this.intervalId)
+      }
       this.intervalId = null
       this.isTimerRunning = false
     }
@@ -123,7 +139,9 @@ export default {
   beforeUnmount() {
     this.stopTimer()
     this.isTimerRunning = false
-    clearInterval(this.intervalId)
+    if (this.intervalId !== null && this.intervalId !== undefined) {
+      clearInterval(this.intervalId)
+    }
     this.intervalId = null
   }
 }
