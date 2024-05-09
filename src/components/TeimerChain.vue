@@ -238,7 +238,7 @@ export default {
         })
       }
     },
-    removeTimer(index) {
+    removeTimer(index: number) {
       if (!this.isAnyTimerRunning) {
         this.timers.splice(index, 1)
       }

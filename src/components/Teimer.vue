@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import Circle from './Circle.vue'
-import { FaPlay, FaStop, CoAvTimer } from '@kalimahapps/vue-icons'
-import VueTimepicker from 'vue3-timepicker'
-import Timeselector from 'vue-timeselector'
+import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
 </script>
 
 <template>
