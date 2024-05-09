@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import Timer from '../components/Timer.vue'
+import Teimer from '../components/Teimer.vue'
+import TeimerChain from '../components/TeimerChain.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,10 +14,12 @@ const router = createRouter({
     {
       path: '/teimer',
       name: 'Single teimer',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: Timer
+      component: Teimer
+    },
+    {
+      path: '/teimer-chain',
+      name: 'Teimer Chain',
+      component: TeimerChain
     }
   ]
 })

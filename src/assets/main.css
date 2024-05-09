@@ -1,16 +1,17 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 50px;
 }
 
 a,
 .green {
   text-decoration: none;
-  color: #ff0000;
+  color: #ff6565;
   transition: 0.4s;
   padding: 3px;
 }
@@ -25,11 +26,5 @@ a,
   body {
     display: flex;
     place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }
