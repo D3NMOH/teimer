@@ -4,8 +4,7 @@ import CircleProgress from 'vue3-circle-progress'
 </script>
 
 <template>
-  <!-- <div class="progress-circle" :style="circleStyle"></div> -->
-  <circle-progress
+  <CircleProgress
     empty-color="transparent"
     linecap="rect"
     transition="1000"

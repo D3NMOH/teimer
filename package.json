@@ -23,6 +23,7 @@
     "chart.js": "^4.4.2",
     "oh-vue-icons": "^1.0.0-rc3",
     "pinia": "^2.1.7",
+    "tsc": "^2.0.4",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue-timeselector": "^1.0.0",
