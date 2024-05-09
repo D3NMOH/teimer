@@ -59,7 +59,7 @@ export default {
       seconds: 0,
       minutes: 0,
       hours: 0,
-      intervalId: null,
+      intervalId: undefined,
       inputHours: 0,
       inputMinutes: 0,
       inputSeconds: 0,
@@ -123,6 +123,8 @@ export default {
   beforeUnmount() {
     this.stopTimer()
     this.isTimerRunning = false
+    clearInterval(this.intervalId)
+    this.intervalId = null
   }
 }
 </script>
