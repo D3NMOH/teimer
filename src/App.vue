@@ -28,13 +28,13 @@ header {
 }
 .logo {
   user-select: none;
-  position: fixed;
-  top: 0;
-  left: 20;
+  position: relative;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: row;
+  margin-top: -30px;
+  z-index: 999;
 }
 .logoText {
   text-align: center;
@@ -61,25 +61,35 @@ header {
 }
 .container {
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
 }
 nav {
-  width: max-content;
-  font-size: 12px;
+  display: flex;
+  width: 100vw;
+  font-size: 20px;
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  position: fixed;
-  border-radius: 20px;
+  position: relative;
   overflow: hidden;
+  text-wrap: nowrap;
+  border-bottom: 2px solid;
+  margin-bottom: 10px;
+  border-image: linear-gradient(to right, transparent, #ff6565, #ff6565, #ff6565, transparent) 1;
 }
 
 nav a.router-link-exact-active {
+  border-radius: 14px 14px 0 0;
   color: var(--color-text);
   font-weight: 600;
-  width: 100%;
+  width: max-content;
   text-shadow: #00000088 0px 5px 25px;
+  border: #ff6565 1px solid;
+  border-bottom: none;
 }
 
 nav a.router-link-exact-active:hover {
@@ -87,24 +97,26 @@ nav a.router-link-exact-active:hover {
 }
 
 nav a {
+  border-radius: 14px 14px 0 0;
+  text-align: center;
   display: flex;
-  font-size: 30px;
   display: inline-block;
-  padding: 10px 30px;
+  padding: 7px;
   align-items: center;
   justify-content: center;
-  border-radius: 10px 0 0 10px;
 }
 
 .main {
-  margin-top: 50px;
-  padding: 20px;
+  * {
+    justify-self: center;
+    margin: 0;
+  }
 }
 
 @media (min-width: 1024px) {
   .container {
     flex-direction: row;
-    justify-content: center;
+    justify-content: left;
     width: 100%;
     padding: 40px;
     border-radius: 25px;
@@ -131,6 +143,8 @@ nav a {
     flex-direction: column;
     height: 700px;
     width: 270px !important;
+    max-width: 270px !important;
+    min-width: 270px !important;
     font-size: 12px;
     text-align: left;
     justify-content: center;
@@ -139,24 +153,32 @@ nav a {
     border-right: 2px solid;
     border-image: linear-gradient(to bottom, transparent, #ff6565, #ff6565, #ff6565, transparent) 1;
   }
+  nav a {
+    align-self: flex-start;
+    text-align: left;
+    font-size: 30px;
+    margin-right: 0;
+    padding-left: 20px;
+    border-radius: 14px 0 0 14px;
+    width: 270px !important;
+  }
   nav a.router-link-exact-active {
-    margin-right: -2px;
+    border-radius: 14px 0 0 14px;
     z-index: 99999;
     border: #ff6565 1px solid;
     border-right: none;
+    margin: 0;
+    padding-right: 50px;
   }
   .main {
     display: flex;
     justify-content: center !important;
     align-items: center !important;
     flex-direction: column;
-    margin-top: 0;
     padding: 0;
     border-radius: 20px;
     height: 700px;
     width: 600px;
-    overflow-y: scroll;
-    scrollbar-width: none;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -174,9 +196,12 @@ nav a {
     -webkit-text-stroke-color: black;
     filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff);
   }
-  .container {
-    background: linear-gradient(#444, #333);
-    filter: drop-shadow(#000 0 10px 40px);
+
+  @media (min-width: 1024px) {
+    .container {
+      background: linear-gradient(#444, #333);
+      filter: drop-shadow(#000 0 10px 40px);
+    }
   }
 }
 </style>
