@@ -8,7 +8,7 @@ import CircleProgress from 'vue3-circle-progress'
     empty-color="transparent"
     linecap="rect"
     transition="1000"
-    :border-width="50"
+    :border-width="35"
     :border-bg-width="0"
     :percent="remainingPercentage"
     :is-gradient="true"
@@ -17,7 +17,7 @@ import CircleProgress from 'vue3-circle-progress'
       startColor: '#ff6565',
       stopColor: '#ff4444'
     }"
-    :size="100"
+    :size="70"
     class="progress-circle"
   />
 </template>

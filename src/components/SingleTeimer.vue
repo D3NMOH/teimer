@@ -7,20 +7,10 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
   <div class="timer">
     <p class="time" v-if="isTimerRunning === true">{{ formattedTime }}</p>
     <div class="buttons">
-      <div
-        v-if="isTimerRunning === false"
-        class="button"
-        style="position: fixed; top: -10px; right: -10px; border-radius: 0 20px 0 50%; z-index: 999"
-        @click="startTimer"
-      >
+      <div v-if="isTimerRunning === false" class="button" @click="startTimer">
         <FaPlay class="icon" style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
       </div>
-      <div
-        v-if="isTimerRunning === true"
-        class="button"
-        style="position: fixed; top: -10px; right: -10px; border-radius: 0 20px 0 50%; z-index: 999"
-        @click="stopTimer"
-      >
+      <div v-if="isTimerRunning === true" class="button" @click="stopTimer">
         <FaStop />
       </div>
     </div>
@@ -177,29 +167,6 @@ export default {
   font-size: 50px;
   font-weight: 900;
 }
-.remove {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 100%;
-  font-size: 30px;
-  background-color: #ff6565;
-  transition: all 0.2s;
-  border: none;
-  color: #fff;
-  * {
-    filter: drop-shadow(#971a1a 1px 1px 1px);
-  }
-  &:hover {
-    background-color: #ff5050;
-    box-shadow: 0 5px 15px 0 #00000094;
-  }
-  &:active {
-    background-color: #7a0000;
-    box-shadow: 0 2px 4px 0 #000;
-  }
-}
 .buttons {
   display: flex;
   flex-direction: row;
@@ -211,16 +178,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 70px;
-  height: 70px;
+  width: 100px;
+  height: 50px;
+  margin-top: 0;
   font-size: 30px;
-  margin: 10px;
   border-radius: 50%;
   background-color: #ff6565;
   transition: all 0.2s;
   border: none;
   color: #fff;
   text-shadow: #971a1a 1px 1px 1px;
+  border-radius: 14px;
+  z-index: 999;
   &:hover {
     background-color: #ff5050;
     box-shadow: 0 5px 15px 0 #00000094;
@@ -266,6 +235,129 @@ input {
   font-size: 13px;
   text-align: center;
 }
+
+@media (min-width: 1024px) {
+  .timepicker {
+    height: 50px;
+    overflow-y: scroll;
+    display: grid;
+    place-items: center;
+    scrollbar-width: none;
+    &:focus {
+      height: 250px;
+    }
+  }
+  .timeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 250px;
+  }
+  .time {
+    font-size: 40px;
+    font-weight: 700;
+  }
+  .timerFields {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 50px;
+    font-weight: 900;
+  }
+  .remove {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 100%;
+    font-size: 30px;
+    background-color: #ff6565;
+    transition: all 0.2s;
+    border: none;
+    color: #fff;
+    * {
+      filter: drop-shadow(#971a1a 1px 1px 1px);
+    }
+    &:hover {
+      background-color: #ff5050;
+      box-shadow: 0 5px 15px 0 #00000094;
+    }
+    &:active {
+      background-color: #7a0000;
+      box-shadow: 0 2px 4px 0 #000;
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    font-size: 30px;
+    margin: 10px;
+    border-radius: 50%;
+    background-color: #ff6565;
+    transition: all 0.2s;
+    border: none;
+    color: #fff;
+    text-shadow: #971a1a 1px 1px 1px;
+    &:hover {
+      background-color: #ff5050;
+      box-shadow: 0 5px 15px 0 #00000094;
+    }
+    &:active {
+      background-color: #7a0000;
+      box-shadow: 0 2px 4px 0 #000;
+    }
+  }
+  .icon {
+    width: 30px;
+    height: 30px;
+    color: #fff;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    border: none;
+    text-align: center;
+    background-color: #ff6565;
+    color: #000000;
+    text-align: center;
+    color: #fff;
+    font-weight: 900;
+    transition: all 0.3s;
+    text-shadow: #971a1a 1px 1px 1px;
+    &:focus {
+      outline: none;
+      filter: drop-shadow(0px 2px 4px #000);
+    }
+  }
+  .timeTitle {
+    font-size: 13px;
+    text-align: center;
+  }
+}
 @media (prefers-color-scheme: dark) {
+  @media (min-width: 1024px) {
+  }
 }
 </style>
