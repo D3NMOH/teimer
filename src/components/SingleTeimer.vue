@@ -8,7 +8,7 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
     <p class="time" v-if="isTimerRunning === true">{{ formattedTime }}</p>
     <div class="buttons">
       <div v-if="isTimerRunning === false" class="button" @click="startTimer">
-        <FaPlay class="icon" style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
+        <FaPlay class="icon" />
       </div>
       <div v-if="isTimerRunning === true" class="button" @click="stopTimer">
         <FaStop />
@@ -20,12 +20,12 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
         <p class="timeTitle">Hours</p>
         <input v-model.number="inputHours" placeholder="hours" type="number" />
       </div>
-      :
+      <span class="colon">:</span>
       <div>
         <p class="timeTitle">Minutes</p>
         <input inactive v-model.number="inputMinutes" placeholder="minutes" type="number" />
       </div>
-      :
+      <span class="colon">:</span>
       <div>
         <p class="timeTitle">Seconds</p>
         <input v-model.number="inputSeconds" placeholder="seconds" type="number" />
@@ -157,6 +157,7 @@ export default {
 .time {
   font-size: 40px;
   font-weight: 700;
+  color: var(--main);
 }
 .timerFields {
   display: flex;
@@ -166,6 +167,11 @@ export default {
   gap: 10px;
   font-size: 50px;
   font-weight: 900;
+}
+.colon {
+  color: var(--main);
+  font-weight: 900;
+  text-shadow: #00000077 1px 1px 2px;
 }
 .buttons {
   display: flex;
@@ -183,19 +189,19 @@ export default {
   margin-top: 0;
   font-size: 30px;
   border-radius: 50%;
-  background-color: #ff6565;
+  background-color: var(--main);
   transition: all 0.2s;
   border: none;
   color: #fff;
-  text-shadow: #971a1a 1px 1px 1px;
+  text-shadow: #00000077 1px 1px 1px;
   border-radius: 14px;
   z-index: 999;
   &:hover {
-    background-color: #ff5050;
+    filter: brightness(0.9);
     box-shadow: 0 5px 15px 0 #00000094;
   }
   &:active {
-    background-color: #7a0000;
+    filter: brightness(0.8);
     box-shadow: 0 2px 4px 0 #000;
   }
 }
@@ -203,6 +209,7 @@ export default {
   width: 30px;
   height: 30px;
   color: #fff;
+  filter: drop-shadow(#00000077 1px 1px 1px);
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -219,16 +226,15 @@ input {
   border-radius: 14px;
   border: none;
   text-align: center;
-  background-color: #ff6565;
-  color: #000000;
+  background-color: var(--main);
   text-align: center;
   color: #fff;
   font-weight: 900;
   transition: all 0.3s;
-  text-shadow: #971a1a 1px 1px 1px;
+  text-shadow: #00000077 1px 1px 1px;
   &:focus {
     outline: none;
-    filter: drop-shadow(0px 2px 4px #000);
+    filter: drop-shadow(0px 2px 4px 00000077);
   }
 }
 .timeTitle {
@@ -266,29 +272,7 @@ input {
     font-size: 50px;
     font-weight: 900;
   }
-  .remove {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 70px;
-    height: 100%;
-    font-size: 30px;
-    background-color: #ff6565;
-    transition: all 0.2s;
-    border: none;
-    color: #fff;
-    * {
-      filter: drop-shadow(#971a1a 1px 1px 1px);
-    }
-    &:hover {
-      background-color: #ff5050;
-      box-shadow: 0 5px 15px 0 #00000094;
-    }
-    &:active {
-      background-color: #7a0000;
-      box-shadow: 0 2px 4px 0 #000;
-    }
-  }
+
   .buttons {
     display: flex;
     flex-direction: row;
@@ -305,24 +289,12 @@ input {
     font-size: 30px;
     margin: 10px;
     border-radius: 50%;
-    background-color: #ff6565;
     transition: all 0.2s;
     border: none;
-    color: #fff;
-    text-shadow: #971a1a 1px 1px 1px;
-    &:hover {
-      background-color: #ff5050;
-      box-shadow: 0 5px 15px 0 #00000094;
-    }
-    &:active {
-      background-color: #7a0000;
-      box-shadow: 0 2px 4px 0 #000;
-    }
   }
   .icon {
     width: 30px;
     height: 30px;
-    color: #fff;
   }
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {
@@ -339,17 +311,8 @@ input {
     border-radius: 14px;
     border: none;
     text-align: center;
-    background-color: #ff6565;
-    color: #000000;
-    text-align: center;
-    color: #fff;
     font-weight: 900;
     transition: all 0.3s;
-    text-shadow: #971a1a 1px 1px 1px;
-    &:focus {
-      outline: none;
-      filter: drop-shadow(0px 2px 4px #000);
-    }
   }
   .timeTitle {
     font-size: 13px;
@@ -357,7 +320,14 @@ input {
   }
 }
 @media (prefers-color-scheme: dark) {
-  @media (min-width: 1024px) {
+  .button {
+    color: #000;
+  }
+  .icon {
+    color: #000;
+  }
+  input {
+    color: #000;
   }
 }
 </style>

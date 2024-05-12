@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { McPalette2Fill } from '@kalimahapps/vue-icons'
 </script>
 
 <template>
+  <button class="changeColor" @click="changeWholeColorTheme">
+    <McPalette2Fill />
+  </button>
   <div class="logo">
     <h1 class="logoText">T<span class="logoTextAccent">e</span>imer</h1>
   </div>
@@ -21,7 +25,77 @@ import { RouterLink, RouterView } from 'vue-router'
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  data() {
+    return {
+      colors: [
+        // mint
+        { primary: '#1de9b6', secondary: '#00bfa5', tertiary: '#00695c' },
+        // red
+        { primary: '#ff6565', secondary: '#ff5050', tertiary: '#7a0000' },
+        // yellow
+        { primary: '#ffcc00', secondary: '#ff9900', tertiary: '#7a5c00' },
+        // blue
+        { primary: '#2196f3', secondary: '#1976d2', tertiary: '#0d47a1' },
+        // green
+        { primary: '#00c853', secondary: '#009624', tertiary: '#003d00' },
+        // purple
+        { primary: '#ab47bc', secondary: '#8e24aa', tertiary: '#4a148c' },
+        // orange
+        { primary: '#ffab00', secondary: '#ff6d00', tertiary: '#7a1b00' }
+      ]
+    }
+  },
+  methods: {
+    // get next color palette
+    getNextColor() {
+      return this.colors.push(this.colors.shift())
+    },
+    getRandomColor() {
+      return this.colors[Math.floor(Math.random() * this.colors.length)]
+    },
+    changeWholeColorTheme() {
+      document.documentElement.style.setProperty('--main', this.getRandomColor().primary)
+    },
+    changeColor() {
+      document.documentElement.style.setProperty('--main', this.getRandomColor().primary)
+      document.documentElement.style.setProperty()
+    }
+  },
+  mounted() {
+    document.documentElement.style.setProperty('--main', this.getRandomColor().primary)
+  },
+  watch: {
+    isAnyTimerRunning() {
+      if (!this.isAnyTimerRunning) {
+        document.documentElement.style.setProperty('--main', this.getRandomColor().primary)
+      }
+    }
+  }
+}
+</script>
+
 <style scoped>
+.changeColor {
+  background-color: transparent;
+  z-index: 99;
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  color: var(--main);
+  font-size: 35px;
+  border: none;
+  transition: all 0.3s;
+  &:hover {
+    scale: 1.1;
+    transition: all 0.3s;
+  }
+  &:active {
+    scale: 0.9;
+    transition: all 0.3s;
+  }
+}
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -44,7 +118,6 @@ header {
   background-clip: text;
   color: transparent;
   background-image: linear-gradient(to bottom, #555 40%, #000 70%);
-  /* filter: drop-shadow(0 3px 10px #0000007c); */
 }
 .logoTextAccent {
   display: inline-block;
@@ -79,7 +152,15 @@ nav {
   text-wrap: nowrap;
   border-bottom: 2px solid;
   margin-bottom: 10px;
-  border-image: linear-gradient(to right, transparent, #ff6565, #ff6565, #ff6565, transparent) 1;
+  border-image: linear-gradient(
+      to right,
+      transparent,
+      var(--main),
+      var(--main),
+      var(--main),
+      transparent
+    )
+    1;
 }
 
 nav a.router-link-exact-active {
@@ -88,7 +169,7 @@ nav a.router-link-exact-active {
   font-weight: 600;
   width: max-content;
   text-shadow: #00000088 0px 5px 25px;
-  border: #ff6565 1px solid;
+  border: var(--main) 1px solid;
   border-bottom: none;
 }
 
@@ -104,6 +185,7 @@ nav a {
   padding: 7px;
   align-items: center;
   justify-content: center;
+  font-weight: 500;
 }
 
 .main {
@@ -151,7 +233,15 @@ nav a {
     border-radius: 20px;
     overflow: hidden;
     border-right: 2px solid;
-    border-image: linear-gradient(to bottom, transparent, #ff6565, #ff6565, #ff6565, transparent) 1;
+    border-image: linear-gradient(
+        to bottom,
+        transparent,
+        var(--main),
+        var(--main),
+        var(--main),
+        transparent
+      )
+      1;
   }
   nav a {
     align-self: flex-start;
@@ -165,7 +255,7 @@ nav a {
   nav a.router-link-exact-active {
     border-radius: 14px 0 0 14px;
     z-index: 99999;
-    border: #ff6565 1px solid;
+    border: var(--main) 1px solid;
     border-right: none;
     margin: 0;
     padding-right: 50px;
@@ -196,7 +286,6 @@ nav a {
     -webkit-text-stroke-color: black;
     filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 2px #fff);
   }
-
   @media (min-width: 1024px) {
     .container {
       background: linear-gradient(#444, #333);
