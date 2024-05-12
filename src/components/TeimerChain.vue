@@ -55,14 +55,14 @@ import { FaPlay, FaStop, FaTrashCan, GlTimeOut, BxPlusMedical } from '@kalimahap
     </div>
     <div class="buttons">
       <button class="button playButton" @click="toggleTimer">
-        <FaPlay v-if="!isAnyTimerRunning" style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
-        <FaStop v-if="isAnyTimerRunning" style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
+        <FaPlay v-if="!isAnyTimerRunning" style="filter: drop-shadow(#00000077 1px 1px 1px)" />
+        <FaStop v-if="isAnyTimerRunning" style="filter: drop-shadow(#00000077 1px 1px 1px)" />
       </button>
       <button class="button resetButton" @click="resetTimers" :disabled="isAnyTimerRunning">
-        <GlTimeOut style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
+        <GlTimeOut style="filter: drop-shadow(#00000077 1px 1px 1px)" />
       </button>
       <button class="button addTimerButton" @click="addTimer" :disabled="isAnyTimerRunning">
-        <BxPlusMedical style="filter: drop-shadow(#971a1a 1px 1px 1px)" />
+        <BxPlusMedical style="filter: drop-shadow(#00000077 1px 1px 1px)" />
       </button>
     </div>
   </div>
@@ -259,9 +259,9 @@ export default {
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s;
-  border: 1px solid #ff6565;
-  color: #ff6565;
-  text-shadow: #971a1a 1px 1px 1px;
+  border: 1px solid var(--main);
+  color: var(--main);
+  text-shadow: #00000077 1px 1px 1px;
   padding-left: 10px;
   padding-right: 60px;
   &:hover {
@@ -298,20 +298,20 @@ export default {
   width: 50px;
   height: 100%;
   font-size: 30px;
-  background-color: #ff6565;
+  background-color: var(--main);
   transition: all 0.2s;
   border: none;
   color: #fff;
   right: 0;
   * {
-    filter: drop-shadow(#971a1a 1px 1px 1px);
+    filter: drop-shadow(#00000077 1px 1px 1px);
   }
   &:hover {
-    background-color: #ff5050;
+    filter: brightness(0.9);
     box-shadow: 0 5px 15px 0 #00000094;
   }
   &:active {
-    background-color: #7a0000;
+    filter: brightness(0.8);
     box-shadow: 0 2px 4px 0 #000;
   }
 }
@@ -327,7 +327,7 @@ export default {
   right: 0;
   bottom: 0;
   border-top-left-radius: 14px;
-  background-color: #ff6565;
+  background-color: var(--main);
 }
 .button {
   display: flex;
@@ -335,21 +335,21 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  background-color: #ff6565;
+  background-color: var(--main);
   transition: all 0.3s;
   border: none;
   color: #fff;
   padding: 10px;
   height: 50px;
   width: 50px;
-  text-shadow: #971a1a 1px 1px 1px;
+  text-shadow: #00000077 1px 1px 1px;
   &:hover {
     z-index: 999;
-    background-color: #ff5050;
+    filter: brightness(0.9);
     box-shadow: 0 0px 15px 0 #00000094;
   }
   &:active {
-    background-color: #7a0000;
+    filter: brightness(0.8);
     box-shadow: 0 0px 4px 0 #000;
   }
 }
@@ -381,13 +381,13 @@ input {
   border-radius: 14px;
   border: none;
   text-align: center;
-  background-color: #ff6565;
+  background-color: var(--main);
   color: #000000;
   text-align: center;
   color: #fff;
   font-weight: 900;
   transition: all 0.3s;
-  text-shadow: #971a1a 1px 1px 1px;
+  text-shadow: #00000077 1px 1px 1px;
   &:focus {
     outline: none;
     filter: drop-shadow(0px 2px 4px #000);
@@ -438,7 +438,7 @@ input {
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s;
-    border: 1px solid #ff6565;
+    border: 1px solid var(--main);
     &:hover {
       box-shadow: 0 5px 20px #000;
     }
@@ -469,21 +469,21 @@ input {
     width: 70px;
     height: 100%;
     font-size: 30px;
-    background-color: #ff6565;
+    background-color: var(--main);
     transition: all 0.2s;
     border: none;
     color: #fff;
     margin-right: 0;
     margin-left: auto;
     * {
-      filter: drop-shadow(#971a1a 1px 1px 1px);
+      filter: drop-shadow(#00000077 1px 1px 1px);
     }
     &:hover {
-      background-color: #ff5050;
+      filter: brightness(0.9);
       box-shadow: 0 5px 15px 0 #00000094;
     }
     &:active {
-      background-color: #7a0000;
+      filter: brightness(0.8);
       box-shadow: 0 2px 4px 0 #000;
     }
   }
@@ -532,18 +532,18 @@ input {
     font-size: 30px;
     margin: 10px;
     border-radius: 50%;
-    background-color: #ff6565;
+    background-color: var(--main);
     transition: all 0.2s;
     border: none;
     color: #fff;
-    text-shadow: #971a1a 1px 1px 1px;
+    text-shadow: #00000077 1px 1px 1px;
     &:hover {
-      background-color: #ff5050;
+      filter: brightness(0.9);
       box-shadow: 0 5px 15px 0 #00000094;
       z-index: 0;
     }
     &:active {
-      background-color: #7a0000;
+      filter: brightness(0.8);
       box-shadow: 0 2px 4px 0 #000;
     }
   }
@@ -567,13 +567,13 @@ input {
     border-radius: 14px;
     border: none;
     text-align: center;
-    background-color: #ff6565;
+    background-color: var(--main);
     color: #000000;
     text-align: center;
     color: #fff;
     font-weight: 900;
     transition: all 0.3s;
-    text-shadow: #971a1a 1px 1px 1px;
+    text-shadow: #00000077 1px 1px 1px;
     &:focus {
       outline: none;
       filter: drop-shadow(0px 2px 4px #000);
@@ -589,5 +589,17 @@ input {
   }
 }
 @media (prefers-color-scheme: dark) {
+  input {
+    color: #000;
+  }
+  .icon {
+    color: #000;
+  }
+  .button {
+    color: #000;
+  }
+  .remove {
+    color: #000;
+  }
 }
 </style>

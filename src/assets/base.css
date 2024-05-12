@@ -20,6 +20,13 @@
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
   scrollbar-width: none;
+  --main: #26a69a;
+  --main-hover: #1b766d;
+  --main-active: #0e3f3a;
+
+  --sec: #30dc00;
+  --sec-hover: #1b9e00;
+  --sec-active: #0f7e00;
 }
 
 /* semantic color variables for this project */
@@ -32,7 +39,7 @@
   --color-border-hover: var(--vt-c-divider-light-1);
 
   --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-text: #000;
 
   --section-gap: 160px;
 
@@ -49,7 +56,10 @@
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: #fff;
+    --main: #1de9b6;
+    --main-hover: #00bfa5;
+    --main-active: #00695c;
   }
 }
 

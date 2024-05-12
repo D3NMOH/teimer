@@ -14,8 +14,8 @@ import CircleProgress from 'vue3-circle-progress'
     :is-gradient="true"
     :gradient="{
       angle: 10,
-      startColor: '#ff6565',
-      stopColor: '#ff4444'
+      startColor: 'var(--main)',
+      stopColor: 'var(--main)'
     }"
     :size="300"
     class="progress-circle"
@@ -64,7 +64,7 @@ export default {
     },
     circleStyle() {
       return {
-        background: `conic-gradient(#ff6565 ${this.remainingPercentage}%, #00000000 ${this.remainingPercentage}% 100%)`
+        background: `conic-gradient(var(--main) ${this.remainingPercentage}%, #00000000 ${this.remainingPercentage}% 100%)`
       }
     }
   },
