@@ -14,7 +14,7 @@ import { McPalette2Fill } from '@kalimahapps/vue-icons'
     <header>
       <div class="wrapper">
         <nav>
-          <RouterLink to="/">Home</RouterLink>
+          <!-- <RouterLink to="/">Home</RouterLink> -->
           <RouterLink to="/teimer">Single Teimer</RouterLink>
           <RouterLink to="/teimer-chain">Teimer Chain</RouterLink>
         </nav>
@@ -60,7 +60,6 @@ export default {
     },
     changeColor() {
       document.documentElement.style.setProperty('--main', this.getRandomColor().primary)
-      document.documentElement.style.setProperty()
     }
   },
   mounted() {
