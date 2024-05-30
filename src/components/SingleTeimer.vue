@@ -158,6 +158,7 @@ export default {
   font-size: 40px;
   font-weight: 700;
   color: var(--main);
+  text-align: center;
 }
 .timerFields {
   display: flex;
