@@ -19,7 +19,7 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-  scrollbar-width: none;
+
   --main: #26a69a;
   --main-hover: #1b766d;
   --main-active: #0e3f3a;
@@ -27,6 +27,12 @@
   --sec: #30dc00;
   --sec-hover: #1b9e00;
   --sec-active: #0f7e00;
+}
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
 }
 
 /* semantic color variables for this project */
