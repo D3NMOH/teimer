@@ -11,15 +11,14 @@ import { McPalette2Fill } from '@kalimahapps/vue-icons'
     <h1 class="logoText">T<span class="logoTextAccent">e</span>imer</h1>
   </div>
   <div class="container">
-    <header>
+    <!--header>
       <div class="wrapper">
         <nav>
-          <!-- <RouterLink to="/">Home</RouterLink> -->
           <RouterLink to="/teimer">Single Teimer</RouterLink>
           <RouterLink to="/teimer-chain">Teimer Chain</RouterLink>
         </nav>
       </div>
-    </header>
+    </header -->
 
     <RouterView class="main" />
   </div>
@@ -99,14 +98,18 @@ header {
   line-height: 1.5;
   max-height: 100vh;
 }
+.main {
+  width: 100%;
+  height: 100%;
+}
 .logo {
   user-select: none;
-  position: relative;
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   flex-direction: row;
-  margin-top: -30px;
   z-index: 999;
 }
 .logoText {
@@ -137,7 +140,6 @@ header {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 nav {
   display: flex;
@@ -196,16 +198,16 @@ nav a {
 
 @media (min-width: 1024px) {
   .container {
+    position: absolute;
     flex-direction: row;
-    justify-content: left;
-    width: 100%;
-    padding: 40px;
-    border-radius: 25px;
-    background: linear-gradient(to right bottom, #eee, #efefefef);
-    filter: drop-shadow(#00000064 0 10px 40px);
-    max-width: 1000px;
+    justify-content: center;
+    min-height: 300px;
+    border-radius: 28px;
+    background-color: #eee;
+    box-shadow: 0 10px 50px #00000055;
     gap: 20px;
     overflow: hidden;
+    inset: 100px 40px 40px 40px;
   }
   header {
     display: flex;
@@ -266,8 +268,8 @@ nav a {
     flex-direction: column;
     padding: 0;
     border-radius: 20px;
-    height: 700px;
-    width: 600px;
+    height: 100%;
+    width: 100%;
   }
 }
 @media (prefers-color-scheme: dark) {
@@ -287,7 +289,7 @@ nav a {
   }
   @media (min-width: 1024px) {
     .container {
-      background: linear-gradient(#444, #333);
+      background-color: #333;
       filter: drop-shadow(#000 0 10px 40px);
     }
   }

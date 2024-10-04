@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import CircleProgress from './ChainCircle.vue'
+import SingleTeimer from './SingleTeimer.vue'
 import { FaPlay, FaStop, FaTrashCan, GlTimeOut, BxPlusMedical } from '@kalimahapps/vue-icons'
 </script>
 
 <template>
   <div class="chainContainer">
     <div class="timerList">
-      <div v-for="(timer, index) in timers" :key="index" class="timer">
+      <SingleTeimer v-if="timers.length === 1" />
+      <div
+        v-else
+        v-for="(timer, index) in timers"
+        :key="index"
+        class="timer"
+        :id="'timer-' + (index + 1)"
+      >
+        <p class="number">
+          {{ index + 1 }}
+        </p>
         <div class="timeContainer">
           <p v-if="isAnyTimerRunning" class="time">{{ formattedTimes[index] }}</p>
           <div v-if="!isAnyTimerRunning" class="timerFields">
@@ -54,15 +65,43 @@ import { FaPlay, FaStop, FaTrashCan, GlTimeOut, BxPlusMedical } from '@kalimahap
       </div>
     </div>
     <div class="buttons">
-      <button class="button playButton" @click="toggleTimer">
-        <FaPlay v-if="!isAnyTimerRunning" style="filter: drop-shadow(#00000077 1px 1px 1px)" />
-        <FaStop v-if="isAnyTimerRunning" style="filter: drop-shadow(#00000077 1px 1px 1px)" />
+      <button v-if="timers.length > 1" class="button playButton" @click="toggleTimer">
+        <FaPlay v-if="!isAnyTimerRunning" />
+        <FaStop v-if="isAnyTimerRunning" />
       </button>
-      <button class="button resetButton" @click="resetTimers" :disabled="isAnyTimerRunning">
-        <GlTimeOut style="filter: drop-shadow(#00000077 1px 1px 1px)" />
+      <button
+        v-if="timers.length > 1"
+        class="button resetButton"
+        @click="resetTimers"
+        :disabled="isAnyTimerRunning"
+      >
+        <GlTimeOut />
       </button>
+      <div v-if="timers.length > 1" class="timerNav">
+        <div class="shadowOver"></div>
+        <div
+          style="
+            height: 100%;
+            overflow-y: scroll;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 70px;
+            z-index: 9;
+          "
+        >
+          <a
+            v-for="(timer, index) in timers"
+            :key="index"
+            class="timerNavButton"
+            :href="'#timer-' + (index + 1)"
+            >{{ index + 1 }}</a
+          >
+        </div>
+      </div>
       <button class="button addTimerButton" @click="addTimer" :disabled="isAnyTimerRunning">
-        <BxPlusMedical style="filter: drop-shadow(#00000077 1px 1px 1px)" />
+        <BxPlusMedical />
       </button>
     </div>
   </div>
@@ -80,7 +119,11 @@ interface Timer {
   inputSeconds: number
 }
 export default {
-  data(): { timers: Timer[]; isAnyTimerRunning: boolean; currentTimerIndex: number } {
+  data(): {
+    timers: Timer[]
+    isAnyTimerRunning: boolean
+    currentTimerIndex: number
+  } {
     return {
       timers: [
         {
@@ -230,9 +273,8 @@ export default {
 
 <style scoped>
 .chainContainer {
-  position: absolute;
-  top: 50px;
-  padding-bottom: 60px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -240,32 +282,61 @@ export default {
   margin: auto;
   gap: 5px;
 }
+.timerList:before {
+  background: linear-gradient(#eee, var(--color-background), transparent);
+  height: 130px;
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+}
 .timerList {
   display: flex;
   flex-direction: column;
   gap: 5px;
+  width: 100%;
+  height: 100%;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  justify-content: center;
+  padding: 120px 0 65px 0;
+  overflow-y: scroll;
+  scrollbar-width: none;
 }
+.timerList:after {
+  background: linear-gradient(transparent, var(--color-background), #eee);
+  height: 70px;
+  content: '';
+  position: fixed;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  z-index: 9;
+}
+
 .timer {
   position: relative;
   width: 95vw;
-  max-width: 500px;
+  max-width: 430px;
   display: flex;
   height: 75px;
   place-self: center;
   flex-direction: row;
   align-items: center;
-  align-content: space-around;
-  justify-content: space-around;
+  align-content: space-between;
+  justify-content: space-between;
   border-radius: 20px;
   overflow: hidden;
   transition: all 0.3s;
   border: 1px solid var(--main);
   color: var(--main);
-  text-shadow: #00000077 1px 1px 1px;
-  padding-left: 10px;
+  padding-left: 0;
   padding-right: 60px;
   &:hover {
-    box-shadow: 0 5px 20px #000;
+    /*    box-shadow: 0 5px 20px #00000077; */
   }
   span {
     font-weight: 900;
@@ -276,6 +347,16 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 45px;
+  height: 100%;
+  background-color: var(--main);
+  font-size: 30px;
+  color: #fff;
 }
 .time {
   font-size: 40px;
@@ -295,7 +376,7 @@ export default {
   position: absolute;
   justify-content: center;
   align-items: center;
-  width: 50px;
+  width: 45px;
   height: 100%;
   font-size: 30px;
   background-color: var(--main);
@@ -304,30 +385,30 @@ export default {
   color: #fff;
   right: 0;
   * {
-    filter: drop-shadow(#00000077 1px 1px 1px);
   }
   &:hover {
-    filter: brightness(0.9);
+    background-color: #232323;
     box-shadow: 0 5px 15px 0 #00000094;
+    color: #fff;
   }
   &:active {
-    filter: brightness(0.8);
+    background-color: black;
     box-shadow: 0 2px 4px 0 #000;
+    color: #fff;
   }
 }
 .buttons {
-  box-shadow: 5px 5px 30px #000;
-  position: fixed;
+  height: max-content;
   display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  place-self: center;
-  right: 0;
-  bottom: 0;
-  border-top-left-radius: 14px;
-  background-color: var(--main);
+  z-index: 999;
 }
 .button {
   display: flex;
@@ -335,32 +416,31 @@ export default {
   justify-content: center;
   align-items: center;
   font-size: 30px;
-  background-color: var(--main);
   transition: all 0.3s;
   border: none;
-  color: #fff;
   padding: 10px;
   height: 50px;
   width: 50px;
-  text-shadow: #00000077 1px 1px 1px;
+  background-color: transparent;
+  color: var(--main);
+  /*  text-shadow: #000000 0px 0px 2px; */
   &:hover {
-    z-index: 999;
-    filter: brightness(0.9);
-    box-shadow: 0 0px 15px 0 #00000094;
+    scale: 1.2;
   }
   &:active {
-    filter: brightness(0.8);
-    box-shadow: 0 0px 4px 0 #000;
+    scale: 0.9;
   }
 }
 .playButton {
 }
-.addTimerButton {
-  font-weight: 900;
-}
 .resetButton {
   font-weight: 900;
 }
+
+.timerNav {
+  display: none;
+}
+
 .icon {
   width: 30px;
   height: 30px;
@@ -381,25 +461,28 @@ input {
   border-radius: 14px;
   border: none;
   text-align: center;
-  background-color: var(--main);
-  color: #000000;
-  text-align: center;
-  color: #fff;
+  background-color: transparent;
+  color: var(--main);
   font-weight: 900;
   transition: all 0.3s;
-  text-shadow: #00000077 1px 1px 1px;
   &:focus {
     outline: none;
-    filter: drop-shadow(0px 2px 4px #000);
   }
 }
 .circle {
   width: 70px;
+  max-width: 70px;
   height: 70px;
+  max-height: 70px;
+  overflow: hidden;
 }
 @media screen and (min-width: 1024px) {
   .chainContainer {
     position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     top: unset;
     padding-bottom: unset;
     align-items: unset;
@@ -407,40 +490,57 @@ input {
     margin: unset;
     gap: unset;
   }
-  .timerList {
+
+  .timerList:before {
+    background: linear-gradient(#eee, transparent);
+    height: 70px;
+    content: '';
     position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
+  }
+  .timerList {
     width: 100%;
     height: 100%;
-    top: 0px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: flex-start;
-    margin: auto;
+    align-content: flex-start;
+    justify-content: center;
+    padding: 70px;
     gap: 5px;
-    padding-bottom: 0px;
     overflow-y: scroll;
     scrollbar-width: none;
+  }
+  .timerList:after {
+    background: linear-gradient(transparent, #eee);
+    height: 70px;
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9;
   }
   .timer {
     position: relative;
     justify-self: flex-start;
     align-self: flex-start;
-    width: 90%;
+    width: stretch;
     display: flex;
-    height: 120px;
-    min-height: 120px;
+    height: 100px;
     flex-direction: row;
     align-items: center;
-    margin: auto;
-    gap: 20px;
     padding-right: 80px;
     border-radius: 20px;
     overflow: hidden;
     transition: all 0.3s;
     border: 1px solid var(--main);
     &:hover {
-      box-shadow: 0 5px 20px #000;
+      /* box-shadow: 0 5px 20px #000; */
     }
   }
   .timeContainer {
@@ -466,62 +566,47 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 70px;
+    width: 50px;
     height: 100%;
     font-size: 30px;
     background-color: var(--main);
-    transition: all 0.2s;
     border: none;
     color: #fff;
-    margin-right: 0;
-    margin-left: auto;
+    transition: all 0.2s;
     * {
-      filter: drop-shadow(#00000077 1px 1px 1px);
     }
     &:hover {
-      filter: brightness(0.9);
-      box-shadow: 0 5px 15px 0 #00000094;
+      background-color: #232323;
     }
     &:active {
-      filter: brightness(0.8);
-      box-shadow: 0 2px 4px 0 #000;
+      background-color: #000;
     }
   }
   .playButton {
-    position: fixed;
-    top: -10px;
-    right: -10px;
-    border-radius: 0 20px 0 50% !important;
     z-index: 999 !important;
   }
   .addTimerButton {
-    position: fixed;
-    bottom: -10px;
-    right: -10px;
-    border-radius: 50% 0 20px 0 !important;
-    font-size: 40px !important;
     font-weight: 900;
   }
   .resetButton {
-    height: 120px !important;
-    position: fixed;
-    padding-bottom: 15px;
-    top: -10px;
-    right: -10px;
-    border-radius: 0 20px 0 35px !important;
-    font-size: 20px;
     display: flex;
     justify-content: center;
-    align-items: end !important;
     font-size: 45px;
     font-weight: 900;
   }
   .buttons {
+    position: absolute;
+    height: 100%;
+    left: unset;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 70px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     gap: 10px;
+    scrollbar-width: none;
   }
   .button {
     display: flex;
@@ -530,23 +615,51 @@ input {
     width: 70px;
     height: 70px;
     font-size: 30px;
-    margin: 10px;
-    border-radius: 50%;
-    background-color: var(--main);
+    background-color: transparent;
     transition: all 0.2s;
     border: none;
-    color: #fff;
-    text-shadow: #00000077 1px 1px 1px;
+    color: var(--main);
+    /* text-shadow: #000000 0px 0px 2px;*/
+    z-index: 999;
     &:hover {
-      filter: brightness(0.9);
-      box-shadow: 0 5px 15px 0 #00000094;
-      z-index: 0;
     }
     &:active {
-      filter: brightness(0.8);
-      box-shadow: 0 2px 4px 0 #000;
     }
   }
+
+  .shadowOver {
+    position: absolute;
+    top: -1px;
+    bottom: 0;
+    right: 0;
+    width: 70px;
+    z-index: 9999;
+    pointer-events: none;
+    background:
+      -webkit-linear-gradient(to bottom, #eee, transparent 50px, transparent),
+      -webkit-linear-gradient(to top, #eee, transparent 50px, transparent);
+    background: linear-gradient(to bottom, #eee, transparent 50px, transparent),
+      linear-gradient(to top, #eee, transparent 50px, transparent);
+  }
+  .timerNav {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    height: 100%;
+    width: 70px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 20px;
+  }
+
+  .timerNavButton {
+    width: 70px;
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+    border-radius: 14px 0 0 14px;
+  }
+
   .icon {
     width: 30px;
     height: 30px;
@@ -566,17 +679,15 @@ input {
     height: 60px;
     border-radius: 14px;
     border: none;
+    color: var(--main);
     text-align: center;
-    background-color: var(--main);
-    color: #000000;
-    text-align: center;
-    color: #fff;
+
     font-weight: 900;
+    /* text-shadow: #000000 0px 0px 2px;*/
     transition: all 0.3s;
-    text-shadow: #00000077 1px 1px 1px;
     &:focus {
       outline: none;
-      filter: drop-shadow(0px 2px 4px #000);
+      /* filter: drop-shadow(0px 2px 4px #000); */
     }
   }
   .timeTitle {
@@ -589,13 +700,28 @@ input {
   }
 }
 @media (prefers-color-scheme: dark) {
+  .timerList:before {
+    background: linear-gradient(#333, transparent);
+  }
+  .timerList:after {
+    background: linear-gradient(transparent, #333);
+  }
+  .shadowOver {
+    background:
+      -webkit-linear-gradient(to bottom, #333, transparent 50px, transparent),
+      -webkit-linear-gradient(to top, #333, transparent 50px, transparent);
+    background: linear-gradient(to bottom, #333, transparent 50px, transparent),
+      linear-gradient(to top, #333, transparent 50px, transparent);
+  }
   input {
-    color: #000;
+    color: var(--main);
   }
   .icon {
     color: #000;
   }
   .button {
+  }
+  .number {
     color: #000;
   }
   .remove {

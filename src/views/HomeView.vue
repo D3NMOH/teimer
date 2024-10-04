@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import TeimerChain from '@/components/TeimerChain.vue'
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <TeimerChain />
   </main>
 </template>

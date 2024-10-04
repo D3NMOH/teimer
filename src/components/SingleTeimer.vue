@@ -4,7 +4,7 @@ import { FaPlay, FaStop } from '@kalimahapps/vue-icons'
 </script>
 
 <template>
-  <div class="timer">
+  <div class="timerSingle">
     <p class="time" v-if="isTimerRunning === true">{{ formattedTime }}</p>
     <div class="buttons">
       <div v-if="isTimerRunning === false" class="button" @click="startTimer">
@@ -154,6 +154,9 @@ export default {
   justify-content: center;
   width: 250px;
 }
+.timerSingle{
+  height: 100%;
+}
 .time {
   font-size: 40px;
   font-weight: 700;
@@ -172,7 +175,7 @@ export default {
 .colon {
   color: var(--main);
   font-weight: 900;
-  text-shadow: #00000077 1px 1px 2px;
+  text-shadow: #000000 0px 0px 2px;
 }
 .buttons {
   display: flex;
@@ -194,16 +197,18 @@ export default {
   transition: all 0.2s;
   border: none;
   color: #fff;
-  text-shadow: #00000077 1px 1px 1px;
+  text-shadow: #000000 0px 0px 2px;
   border-radius: 14px;
   z-index: 999;
   &:hover {
-    filter: brightness(0.9);
-    box-shadow: 0 5px 15px 0 #00000094;
+    background-color: #232323;
+    box-shadow: 0 5px 15px #00000094;
+    color: #fff;
   }
   &:active {
-    filter: brightness(0.8);
-    box-shadow: 0 2px 4px 0 #000;
+    background-color: black;
+    box-shadow: 0 2px 4px #000;
+    color: #fff;
   }
 }
 .icon {
@@ -232,7 +237,7 @@ input {
   color: #fff;
   font-weight: 900;
   transition: all 0.3s;
-  text-shadow: #00000077 1px 1px 1px;
+  text-shadow: #000000 0px 0px 2px;
   &:focus {
     outline: none;
     filter: drop-shadow(0px 2px 4px 00000077);
@@ -241,6 +246,7 @@ input {
 .timeTitle {
   font-size: 13px;
   text-align: center;
+  color: var(--main);
 }
 
 @media (min-width: 1024px) {
@@ -322,7 +328,20 @@ input {
 }
 @media (prefers-color-scheme: dark) {
   .button {
-    color: #000;
+    * {
+      color: #000;
+      transition: all 0.2s;
+    }
+    &:hover {
+      * {
+        color: white;
+      }
+    }
+    &:active {
+      * {
+        color: white;
+      }
+    }
   }
   .icon {
     color: #000;
