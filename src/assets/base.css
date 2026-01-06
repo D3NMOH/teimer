@@ -20,13 +20,8 @@
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 
-  --main: #26a69a;
-  --main-hover: #1b766d;
-  --main-active: #0e3f3a;
-
-  --sec: #30dc00;
-  --sec-hover: #1b9e00;
-  --sec-active: #0f7e00;
+  --bg-mono: #fff;
+  --text-mono: #000;
 }
 * {
   scrollbar-width: none;
@@ -63,9 +58,8 @@
 
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: #fff;
-    --main: #1de9b6;
-    --main-hover: #00bfa5;
-    --main-active: #00695c;
+    --bg-mono: #000;
+    --text-mono: #fff;
   }
 }
 
