@@ -450,6 +450,7 @@ onBeforeUnmount(() => {
   font-weight: 800 !important;
   font-family: inherit;
   margin-top: -4px;
+  padding-bottom: 15px;
 }
 
 .timer-grid:has(> .timer-wrapper:only-child) .time-separator {

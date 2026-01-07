@@ -576,7 +576,11 @@ body {
   align-items: center;
   gap: 12px;
   font-weight: 700;
+  font-size: 24px;
   cursor: pointer;
+  @media (prefers-color-scheme: dark) {
+    color: #000;
+  }
 }
 
 .user-info {
