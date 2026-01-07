@@ -1,0 +1,13 @@
+@import './base.css';
+
+#app {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (max-width: 640px) {
+  #app {
+    padding-bottom: 80px;
+  }
+}
