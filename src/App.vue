@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
-import { RouterView } from 'vue-router'
+import TeimerChain from './components/TeimerChain.vue'
 import {
   BxUserCircle,
   BxLogOut,
@@ -186,7 +186,7 @@ onMounted(() => {
     </header>
 
     <main class="app-content">
-      <RouterView />
+      <TeimerChain />
     </main>
 
     <!-- Sidebar Panel -->
@@ -320,8 +320,6 @@ onMounted(() => {
   --text-secondary: #666666;
   --header-height: 70px;
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  /* Dynamic Accent Color */
   --main: var(--secondary);
   --main-rgb: var(--secondary-rgb);
 }
@@ -331,28 +329,9 @@ onMounted(() => {
     --app-bg: #121212;
     --text-primary: #f5f5f5;
     --text-secondary: #a0a0a0;
-
-    /* Dynamic Accent Color */
     --main: var(--primary);
     --main-rgb: var(--primary-rgb);
   }
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family:
-    'Inter',
-    system-ui,
-    -apple-system,
-    sans-serif;
-  background-color: var(--app-bg);
-  color: var(--text-primary);
-  overflow-x: hidden;
 }
 
 .app-layout {

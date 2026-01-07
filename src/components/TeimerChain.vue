@@ -547,6 +547,7 @@ onBeforeUnmount(() => {
   gap: 12px;
   cursor: pointer;
   transition: var(--transition);
+  text-wrap: nowrap;
   @media (prefers-color-scheme: dark) {
     color: #000;
   }
