@@ -209,6 +209,9 @@ async function handleAuth() {
   transition: var(--transition);
   margin-top: 8px;
   box-shadow: 0 10px 20px rgba(var(--main-rgb), 0.2);
+  @media (prefers-color-scheme: dark) {
+    color: #000;
+  }
 }
 
 .submit-btn:hover:not(:disabled) {

@@ -29,7 +29,7 @@ const teimerStore = useTeimerStore()
 const locales = [
   { code: 'de', name: 'DE' },
   { code: 'en', name: 'EN' },
-  { code: 'uk', name: 'UA' },
+  { code: 'uk', name: 'UK' },
   { code: 'ru', name: 'RU' }
 ]
 
@@ -200,7 +200,7 @@ onMounted(() => {
       <div class="sidebar-header">
         <div v-if="!isLoggedIn" class="auth-section">
           <button class="sidebar-auth-btn" @click="showAuthModal = true">
-            <BxUserCircle />
+            <BxUserCircle /> <span style="font-size: 14px">{{ t('app.signIn') }}</span>
           </button>
         </div>
         <div v-else class="user-info">
@@ -546,7 +546,7 @@ onMounted(() => {
 
 .sidebar-auth-btn {
   width: 100%;
-  padding: 14px;
+  padding: 7px 14px;
   border-radius: 12px;
   border: none;
   background: var(--main);

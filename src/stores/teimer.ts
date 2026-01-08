@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { supabase } from '@/supabase'
 import { useAuthStore } from './auth'
+import { useI18n } from 'vue-i18n'
 
 export interface Timer {
   name: string
@@ -27,6 +28,7 @@ export const useTeimerStore = defineStore('teimer', () => {
   const chains = ref<TimerChain[]>([])
   const loading = ref(false)
   const authStore = useAuthStore()
+  const { t } = useI18n()
 
   // Active Session State
   const currentChainId = ref<string | null>(null)
@@ -88,7 +90,7 @@ export const useTeimerStore = defineStore('teimer', () => {
           if (currentTimerIndex.value < activeTimers.value.length) {
             startTimer(currentTimerIndex.value)
           } else {
-            notify('Chain finished!', 'success')
+            notify(`${t('chain.finished')}`, 'success')
             stopAllTimers()
             currentTimerIndex.value = 0
           }
