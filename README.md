@@ -92,4 +92,4 @@ Teimer follows a **Premium Minimalist** design philosophy:
 
 ## 📄 License
 
-Created with ❤️ by [d3nmoh](https://github.com/d3nmoh).
+Created with ❤️ by [D3NMOH](https://github.com/d3nmoh).
