@@ -7,7 +7,7 @@
   <a href="https://vitejs.dev/"><img src="https://img.shields.io/badge/Vite-5.x-646cff?style=for-the-badge&logo=vite" alt="Vite"></a>
   <a href="https://www.typescriptlang.org/"><img src="https://img.shields.io/badge/TypeScript-5.x-3178c6?style=for-the-badge&logo=typescript" alt="TypeScript"></a>
   <a href="https://pinia.vuejs.org/"><img src="https://img.shields.io/badge/Pinia-2.x-ffe467?style=for-the-badge&logo=pinia" alt="Pinia"></a>
-  <a href="https://supabase.com/"><img src="https://img.shields.io/badge/Supabase-Backend-3ECF8E?style=for-the-badge&logo=supabase" alt="Supabase"></a>
+  <a href="https://bun.sh/"><img src="https://img.shields.io/badge/Bun-Backend-fbf0df?style=for-the-badge&logo=bun" alt="Bun"></a>
 </p>
 
 <p align="center">
@@ -27,8 +27,8 @@
   - **Focus Mode**: A stunningly large vertical/horizontal display for single timers.
   - **Grid Mode**: A flexible, responsive grid for managing multiple timers at once.
 - 🌍 **Internationalization**: Full support for English, Russian, Ukrainian, and German.
-- 💾 **Cloud Synchronization**: Your timers and chain sequences are securely backed up and synced across all your devices via **Supabase**.
-- 🔐 **Instant Auth**: Fast and secure magic-link or password authentication to keep your data private.
+- 💾 **Cloud Synchronization**: Your timers and chain sequences are securely backed up and synced across all your devices via a custom **Bun + SQLite** backend.
+- 🔐 **Instant Auth**: Fast and secure authentication with email verification and password reset to keep your data private.
 - ⚡ **Performance**: Built with Vite and Vue 3 for near-instant load times and zero-lag interactions.
 
 ---
@@ -37,7 +37,7 @@
 
 - **Frontend Framework**: [Vue 3](https://vuejs.org/) (Composition API)
 - **State Management**: [Pinia](https://pinia.vuejs.org/)
-- **Backend & Auth**: [Supabase](https://supabase.com/) (Real-time DB & Auth)
+- **Backend**: [Bun](https://bun.sh/) + [Hono](https://hono.dev/) + [bun:sqlite](https://bun.sh/docs/api/sqlite)
 - **Build Tool**: [Vite](https://vitejs.dev/)
 - **Styling**: Vanilla CSS with modern Flexbox & Grid layouts and `clamp()` for fluid typography.
 - **Icons**: [Vue Icons](https://github.com/KalimahApps/vue-icons)

@@ -19,7 +19,7 @@ withDefaults(defineProps<Props>(), {
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 165.075 41.25"
     :height="height"
-    style="width: auto"
+    width="auto"
     class="teimer-logo"
   >
     <path

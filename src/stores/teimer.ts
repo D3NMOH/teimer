@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
-import { supabase } from '@/supabase'
+import { api } from '@/api'
 import { useAuthStore } from './auth'
 import { useI18n } from 'vue-i18n'
 
@@ -180,7 +180,7 @@ export const useTeimerStore = defineStore('teimer', () => {
   async function fetchChains() {
     if (!authStore.user) return
     loading.value = true
-    const { data, error } = await supabase
+    const { data, error } = await api
       .from('timer_chains')
       .select('*')
       .order('created_at', { ascending: false })
@@ -213,7 +213,7 @@ export const useTeimerStore = defineStore('teimer', () => {
       payload.id = currentChainId.value
     }
 
-    const { data, error } = await supabase.from('timer_chains').upsert(payload).select()
+    const { data, error } = await api.from('timer_chains').upsert(payload).select()
 
     if (error) {
       console.error('Error saving chain:', error)
@@ -234,7 +234,7 @@ export const useTeimerStore = defineStore('teimer', () => {
   async function deleteChain(id: string) {
     if (!authStore.user) return
     loading.value = true
-    const { error } = await supabase.from('timer_chains').delete().eq('id', id)
+    const { error } = await api.from('timer_chains').delete().eq('id', id)
 
     if (error) {
       console.error('Error deleting chain:', error)

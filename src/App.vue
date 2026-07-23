@@ -85,19 +85,15 @@ const handleCustomColor = (e: Event) => {
 const setThemeColor = (colorObj: (typeof colors)[0]) => {
   const { primary, secondary, tertiary } = colorObj
 
-  // Set Primary (Main)
   document.documentElement.style.setProperty('--primary', primary)
   document.documentElement.style.setProperty('--primary-rgb', hexToRgb(primary))
 
-  // Set Secondary
   document.documentElement.style.setProperty('--secondary', secondary)
   document.documentElement.style.setProperty('--secondary-rgb', hexToRgb(secondary))
 
-  // Set Tertiary
   document.documentElement.style.setProperty('--tertiary', tertiary)
   document.documentElement.style.setProperty('--tertiary-rgb', hexToRgb(tertiary))
 
-  // Persistence
   localStorage.setItem('teimer-theme', JSON.stringify(colorObj))
 }
 
@@ -121,6 +117,18 @@ onMounted(() => {
   } else {
     setThemeColor(colors[0])
   }
+
+  const urlParams = new URLSearchParams(window.location.search)
+  if (urlParams.has('verified')) {
+    teimerStore.notify('Email successfully verified! You can now sign in.', 'success')
+    window.history.replaceState({}, document.title, window.location.pathname)
+  } else if (urlParams.has('reset_success')) {
+    teimerStore.notify(
+      'Password reset successful! Please sign in with your new password.',
+      'success'
+    )
+    window.history.replaceState({}, document.title, window.location.pathname)
+  }
 })
 </script>
 
@@ -134,7 +142,6 @@ onMounted(() => {
         <TeLogo height="32" primaryColor="var(--text-primary)" secondaryColor="var(--main)" />
       </div>
 
-      <!-- Chain Controls in Topbar -->
       <div class="topbar-controls">
         <div class="chain-name-group">
           <input
@@ -189,7 +196,6 @@ onMounted(() => {
       <TeimerChain />
     </main>
 
-    <!-- Sidebar Panel -->
     <div
       class="sidebar-panel"
       :class="{ open: showSidebar }"
@@ -216,7 +222,6 @@ onMounted(() => {
       </div>
 
       <div class="sidebar-content">
-        <!-- Color Theme Section -->
         <div class="sidebar-section">
           <div class="section-label">{{ t('app.changeTheme') }}</div>
           <div class="color-picker-grid">
@@ -259,7 +264,6 @@ onMounted(() => {
           </div>
         </div>
 
-        <!-- Chain List Access -->
         <div class="sidebar-section" v-if="isLoggedIn">
           <div class="sidebar-header-inline">
             <div class="section-label">{{ t('app.savedChains') }}</div>
@@ -302,7 +306,6 @@ onMounted(() => {
 
     <TeimerAuth v-if="showAuthModal" @close="showAuthModal = false" />
 
-    <!-- Toast Notification -->
     <Transition name="toast">
       <div v-if="teimerStore.toast.show" class="toast-notification" :class="teimerStore.toast.type">
         <div class="toast-content">
@@ -360,7 +363,6 @@ onMounted(() => {
   }
 }
 
-/* Topbar Controls */
 .topbar-controls {
   flex: 1;
   display: flex;
@@ -482,7 +484,6 @@ onMounted(() => {
   }
 }
 
-/* Sidebar */
 .sidebar-panel {
   position: fixed;
   top: 0;
@@ -564,7 +565,6 @@ onMounted(() => {
 
 .user-info {
   display: flex;
-  /* flex-direction: column; */
   gap: 16px;
 }
 
@@ -731,7 +731,6 @@ onMounted(() => {
   border: 1px dashed rgba(var(--text-primary), 0.1);
 }
 
-/* Color Picker */
 .color-picker-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
