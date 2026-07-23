@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { supabase } from '../supabase'
+import { api } from '../api'
 import { BxX } from '@kalimahapps/vue-icons'
 import { useI18n } from 'vue-i18n'
 
@@ -14,6 +14,7 @@ const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const isSignUp = ref(false)
+const isForgotPassword = ref(false)
 const errorMsg = ref('')
 
 const emit = defineEmits(['close'])
@@ -24,20 +25,37 @@ async function handleAuth() {
 
   try {
     if (isSignUp.value) {
-      const { error } = await supabase.auth.signUp({
+      const { error } = await api.auth.signUp({
         email: email.value,
         password: password.value
       })
       if (error) throw error
-      alert('Check your email for the confirmation link!')
+      alert(t('app.checkInboxVerify'))
+      isSignUp.value = false
     } else {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await api.auth.signInWithPassword({
         email: email.value,
         password: password.value
       })
       if (error) throw error
       emit('close')
     }
+  } catch (error: any) {
+    errorMsg.value = error.message
+  } finally {
+    loading.value = false
+  }
+}
+
+async function handleForgotPassword() {
+  loading.value = true
+  errorMsg.value = ''
+
+  try {
+    const { error } = await api.auth.resetPasswordForEmail(email.value)
+    if (error) throw error
+    alert(t('app.resetLinkSent'))
+    isForgotPassword.value = false
   } catch (error: any) {
     errorMsg.value = error.message
   } finally {
@@ -54,13 +72,39 @@ async function handleAuth() {
       </button>
 
       <div class="modal-header">
-        <h2>{{ isSignUp ? t('app.createAccount') : t('app.welcome') }}</h2>
+        <h2>
+          {{ 
+            isForgotPassword 
+              ? t('app.resetPassword') 
+              : (isSignUp ? t('app.createAccount') : t('app.welcome')) 
+          }}
+        </h2>
         <p>
-          {{ isSignUp ? t('app.join') : t('app.access') }}
+          {{ 
+            isForgotPassword 
+              ? t('app.enterEmailToReset') 
+              : (isSignUp ? t('app.join') : t('app.access')) 
+          }}
         </p>
       </div>
 
-      <form @submit.prevent="handleAuth" class="auth-form">
+      <!-- Forgot Password Form -->
+      <form v-if="isForgotPassword" @submit.prevent="handleForgotPassword" class="auth-form">
+        <div class="input-group">
+          <label>{{ t('app.email') }}</label>
+          <input v-model="email" type="email" required placeholder="name@example.com" />
+        </div>
+
+        <p v-if="errorMsg" class="error-msg">{{ errorMsg }}</p>
+
+        <button class="submit-btn" :disabled="loading">
+          <span v-if="loading">{{ t('app.loading') }}</span>
+          <span v-else>{{ t('app.resetPassword') }}</span>
+        </button>
+      </form>
+
+      <!-- Sign In / Sign Up Form -->
+      <form v-else @submit.prevent="handleAuth" class="auth-form">
         <div class="input-group">
           <label>{{ t('app.email') }}</label>
           <input v-model="email" type="email" required placeholder="name@example.com" />
@@ -68,6 +112,13 @@ async function handleAuth() {
         <div class="input-group">
           <label>{{ t('app.password') }}</label>
           <input v-model="password" type="password" required placeholder="••••••••" />
+          <button 
+            type="button" 
+            class="forgot-password-link" 
+            @click="isForgotPassword = true; errorMsg = ''"
+          >
+            {{ t('app.forgotPassword') }}
+          </button>
         </div>
 
         <p v-if="errorMsg" class="error-msg">{{ errorMsg }}</p>
@@ -79,9 +130,14 @@ async function handleAuth() {
       </form>
 
       <div class="modal-footer">
-        <p>
+        <p v-if="isForgotPassword">
+          <button class="toggle-link" @click="isForgotPassword = false; errorMsg = ''">
+            {{ t('app.backToSignIn') }}
+          </button>
+        </p>
+        <p v-else>
           {{ isSignUp ? t('app.alreadyHave') : t('app.dontHave') }}
-          <button class="toggle-link" @click="isSignUp = !isSignUp">
+          <button class="toggle-link" @click="isSignUp = !isSignUp; errorMsg = ''">
             {{ isSignUp ? t('app.signIn') : t('app.createOne') }}
           </button>
         </p>
@@ -242,5 +298,22 @@ async function handleAuth() {
   text-decoration: underline;
   cursor: pointer;
   margin-left: 4px;
+}
+
+.forgot-password-link {
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: right;
+  margin-top: 4px;
+  align-self: flex-end;
+  transition: var(--transition);
+}
+
+.forgot-password-link:hover {
+  color: var(--main);
 }
 </style>

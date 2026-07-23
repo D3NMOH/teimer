@@ -19,7 +19,13 @@ const messages = {
       alreadyHave: 'Already have an account?',
       dontHave: "Don't have an account?",
       createOne: 'Create One',
-      language: 'Language'
+      language: 'Language',
+      forgotPassword: 'Forgot Password?',
+      resetLinkSent: 'If the email exists, a password reset link has been sent!',
+      backToSignIn: 'Back to Sign In',
+      resetPassword: 'Reset Password',
+      enterEmailToReset: 'Enter your email to receive a password reset link.',
+      checkInboxVerify: 'Registration successful! Please check your inbox (and spam) to verify your email.'
     },
     chain: {
       placeholder: 'New Chain Name...',
@@ -53,7 +59,13 @@ const messages = {
       alreadyHave: 'Уже есть аккаунт?',
       dontHave: 'Нет аккаунта?',
       createOne: 'Создать',
-      language: 'Язык'
+      language: 'Язык',
+      forgotPassword: 'Забыли пароль?',
+      resetLinkSent: 'Если этот email зарегистрирован, ссылка для сброса пароля отправлена!',
+      backToSignIn: 'Назад к входу',
+      resetPassword: 'Сбросить пароль',
+      enterEmailToReset: 'Введите ваш email, чтобы получить ссылку для сброса пароля.',
+      checkInboxVerify: 'Регистрация успешна! Пожалуйста, проверьте почту (и спам) для подтверждения аккаунта.'
     },
     chain: {
       placeholder: 'Название новой цепочки...',
@@ -87,7 +99,13 @@ const messages = {
       alreadyHave: 'Вже є акаунт?',
       dontHave: 'Немає акаунту?',
       createOne: 'Створити',
-      language: 'Мова'
+      language: 'Мова',
+      forgotPassword: 'Забули пароль?',
+      resetLinkSent: 'Якщо цей email зареєстрований, посилання для скидання пароля надіслано!',
+      backToSignIn: 'Назад до входу',
+      resetPassword: 'Скинути пароль',
+      enterEmailToReset: 'Введіть ваш email, щоб отримати посилання для скидання пароля.',
+      checkInboxVerify: 'Реєстрація успішна! Будь ласка, перевірте пошту (і спам) для підтвердження акаунту.'
     },
     chain: {
       placeholder: 'Назва нового ланцюжка...',
@@ -121,7 +139,13 @@ const messages = {
       alreadyHave: 'Haben Sie bereits ein Konto?',
       dontHave: 'Haben Sie noch kein Konto?',
       createOne: 'Konto erstellen',
-      language: 'Sprache'
+      language: 'Sprache',
+      forgotPassword: 'Passwort vergessen?',
+      resetLinkSent: 'Wenn die E-Mail registriert ist, wurde ein Link zum Zurücksetzen gesendet!',
+      backToSignIn: 'Zurück zum Anmelden',
+      resetPassword: 'Passwort zurücksetzen',
+      enterEmailToReset: 'Geben Sie Ihre E-Mail-Adresse ein, um einen Link zum Zurücksetzen des Passworts zu erhalten.',
+      checkInboxVerify: 'Registrierung erfolgreich! Bitte überprüfen Sie Ihren Posteingang (und Spam), um Ihre E-Mail zu bestätigen.'
     },
     chain: {
       placeholder: 'Name der neuen Kette...',
