@@ -10,6 +10,16 @@ export interface Session {
   access_token: string
 }
 
+async function safeParseJson(res: Response): Promise<any> {
+  const text = await res.text()
+  if (!text) return null
+  try {
+    return JSON.parse(text)
+  } catch (e) {
+    return null
+  }
+}
+
 class AuthClient {
   private listeners: ((event: string, session: Session | null) => void)[] = []
 
@@ -22,7 +32,8 @@ class AuthClient {
         headers: { Authorization: `Bearer ${token}` }
       })
       if (!res.ok) throw new Error('Session invalid')
-      const data = await res.json()
+      const data = await safeParseJson(res)
+      if (!data?.user) throw new Error('Invalid session payload')
       return { data: { session: { user: data.user, access_token: token } } }
     } catch (e) {
       localStorage.removeItem('teimer-token')
@@ -56,8 +67,14 @@ class AuthClient {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, frontendUrl: window.location.origin })
       })
-      const data = await res.json()
-      if (!res.ok) return { error: { message: data.message || 'Signup failed' } }
+      const data = await safeParseJson(res)
+      if (!res.ok) {
+        return {
+          error: {
+            message: data?.message || `Server error (${res.status} ${res.statusText || ''})`.trim()
+          }
+        }
+      }
       return { error: null }
     } catch (err: any) {
       return { error: { message: err.message } }
@@ -74,8 +91,18 @@ class AuthClient {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       })
-      const data = await res.json()
-      if (!res.ok) return { error: { message: data.message || 'Signin failed' } }
+      const data = await safeParseJson(res)
+      if (!res.ok) {
+        return {
+          error: {
+            message: data?.message || `Server error (${res.status} ${res.statusText || ''})`.trim()
+          }
+        }
+      }
+
+      if (!data?.token) {
+        return { error: { message: 'Server did not return authentication token' } }
+      }
 
       localStorage.setItem('teimer-token', data.token)
 
@@ -100,8 +127,14 @@ class AuthClient {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, frontendUrl: window.location.origin })
       })
-      const data = await res.json()
-      if (!res.ok) return { error: { message: data.message || 'Request failed' } }
+      const data = await safeParseJson(res)
+      if (!res.ok) {
+        return {
+          error: {
+            message: data?.message || `Request failed (${res.status} ${res.statusText || ''})`.trim()
+          }
+        }
+      }
       return { error: null }
     } catch (err: any) {
       return { error: { message: err.message } }
@@ -139,9 +172,13 @@ class ApiClient {
                   headers: getHeaders()
                 }
               )
-              const data = await res.json()
-              if (!res.ok)
-                return { data: null, error: { message: data.message || 'Fetch failed' } }
+              const data = await safeParseJson(res)
+              if (!res.ok) {
+                return {
+                  data: null,
+                  error: { message: data?.message || `Fetch failed (${res.status})` }
+                }
+              }
               return { data, error: null }
             } catch (err: any) {
               return { data: null, error: { message: err.message } }
@@ -158,14 +195,19 @@ class ApiClient {
                 headers: getHeaders(),
                 body: JSON.stringify(payload)
               })
-              const data = await res.json()
-              if (!res.ok) return { data: null, error: { message: data.message || 'Save failed' } }
+              const data = await safeParseJson(res)
+              if (!res.ok) {
+                return {
+                  data: null,
+                  error: { message: data?.message || `Save failed (${res.status})` }
+                }
+              }
               return { data: [data], error: null }
             } catch (err: any) {
               return { data: null, error: { message: err.message } }
             }
           }
-        };
+        }
       },
       delete: () => {
         return {
@@ -176,8 +218,12 @@ class ApiClient {
                 method: 'DELETE',
                 headers: getHeaders()
               })
-              const data = await res.json()
-              if (!res.ok) return { error: { message: data.message || 'Delete failed' } }
+              const data = await safeParseJson(res)
+              if (!res.ok) {
+                return {
+                  error: { message: data?.message || `Delete failed (${res.status})` }
+                }
+              }
               return { error: null }
             } catch (err: any) {
               return { error: { message: err.message } }
